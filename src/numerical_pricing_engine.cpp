@@ -3,11 +3,13 @@
 NumericalPricingEngine::NumericalPricingEngine(
     const Wrapper<EuropeanOption>& theOption,
         double vol,
-        double r
+        double r,
+        double div
 )
     :theOption(theOption),
     vol(vol),
-    r(r)
+    r(r),
+    div(div)
 {}
 
 double NumericalPricingEngine::getOptionPrice(double spot){

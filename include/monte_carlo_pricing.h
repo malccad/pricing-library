@@ -9,6 +9,7 @@ double getMonteCarloPrice(
     const Wrapper<EuropeanOption>& theOption,
     double vol,
     double r,
+    double div,
     unsigned long numPaths
 );
 

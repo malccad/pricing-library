@@ -16,7 +16,8 @@ public:
     CrankNicolson(
         const Wrapper<EuropeanOption>& theOption,
         double vol,
-        double r
+        double r,
+        double div
         );
 
     virtual ~CrankNicolson(){}
@@ -28,6 +29,7 @@ private:
         double v2,
         double vol,
         double r,
+        double div,
         double dt
     ) const override;
 
@@ -38,6 +40,7 @@ private:
         double v2,
         double vol,
         double r,
+        double div,
         double dt
     ) const override;
 
@@ -50,12 +53,14 @@ private:
         double v1,
         double v2,
         double r,
+        double div,
         double dt
     ) override;
 
     void _updateBoundary(
         std::vector<double>& curOptionPrices,
         double r,
+        double div,
         double dt
     ) override;
 

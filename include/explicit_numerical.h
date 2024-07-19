@@ -9,7 +9,8 @@ public:
     Explicit(
         const Wrapper<EuropeanOption>& theOption,
         double vol,
-        double r
+        double r,
+        double div
         );
     
     void buildModel(

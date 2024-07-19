@@ -14,12 +14,13 @@ std::unique_ptr<NumericalPricingEngine> NumericalPricingEngineFactory::createEng
     std::string engineName,
     const Wrapper<EuropeanOption>& theOption,
     double vol,
-    double r){
+    double r,
+    double div){
     std::map<std::string, CreateEngineFunction>::iterator it = theCreatorFunctions.find(engineName);
     if (it == theCreatorFunctions.end()){
         std::cout << "Engine name not found! "<< std::endl;
     }
-    return (it->second)(theOption, vol, r);
+    return (it->second)(theOption, vol, r, div);
 }
 
 std::vector<std::string> NumericalPricingEngineFactory::getEngineNames() const{

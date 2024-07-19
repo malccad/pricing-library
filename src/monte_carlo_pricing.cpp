@@ -7,10 +7,11 @@ double getMonteCarloPrice(
     const Wrapper<EuropeanOption>& theOption,
     double vol,
     double r,
+    double div,
     unsigned long numPaths
 ){
     double expiry = theOption->getExpiry();
-    double movedSpot = spot*exp((r-0.5*vol*vol)*expiry);
+    double movedSpot = spot*exp((r-div-0.5*vol*vol)*expiry);
     double sumPayOffs = 0;
     GaussianGenerator generator = GaussianGenerator();
     for (unsigned long i=0; i<numPaths; ++i){

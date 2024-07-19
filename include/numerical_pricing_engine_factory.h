@@ -9,11 +9,11 @@
 class NumericalPricingEngineFactory
 {
 public:
-    typedef std::unique_ptr<NumericalPricingEngine> (*CreateEngineFunction)(const Wrapper<EuropeanOption>&, double, double);
+    typedef std::unique_ptr<NumericalPricingEngine> (*CreateEngineFunction)(const Wrapper<EuropeanOption>& theOption, double vol, double r, double div);
 
     static NumericalPricingEngineFactory& Instance();
     void registerEngine(std::string, CreateEngineFunction);
-    std::unique_ptr<NumericalPricingEngine> createEngine(std::string, const Wrapper<EuropeanOption>&, double, double);
+    std::unique_ptr<NumericalPricingEngine> createEngine(std::string engineName, const Wrapper<EuropeanOption>& theOption, double vol, double r, double div);
     std::vector<std::string> getEngineNames() const;
 private:
     std::map<std::string, CreateEngineFunction> theCreatorFunctions;

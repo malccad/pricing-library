@@ -4,8 +4,9 @@
 ImplicitBase::ImplicitBase(
     const Wrapper<EuropeanOption>& theOption,
     double vol,
-    double r
-):NumericalPricingEngine(theOption, vol, r)
+    double r,
+    double div
+):NumericalPricingEngine(theOption, vol, r, div)
 {}
 void ImplicitBase::buildModel(
     unsigned long numAssetStep,
@@ -29,16 +30,16 @@ void ImplicitBase::buildModel(
     }
 
     std::map<std::string, std::vector<double>> triDiagonalMatrix = _getTriDiagonalMatrix(
-        assetPrices, v1, v2, vol, r, dt);
+        assetPrices, v1, v2, vol, r, div, dt);
     
     for (int k=1; k<numTimeStep; ++k){
 
-        std::vector<double> target = _getTarget(curOptionPrices, assetPrices, v1, v2, vol, r, dt);
+        std::vector<double> target = _getTarget(curOptionPrices, assetPrices, v1, v2, vol, r, div, dt);
 
         std::map<std::string, std::vector<double>> curTriDiagonalMatrix(triDiagonalMatrix);
 
         _addBoundaryConditionsToSystem(
-            target, curTriDiagonalMatrix, curOptionPrices, assetPrices, vol, v1, v2, r, dt
+            target, curTriDiagonalMatrix, curOptionPrices, assetPrices, vol, v1, v2, r, div, dt
         );
 
         std::vector<double> v = triDiagonalSolver(target, curTriDiagonalMatrix);
@@ -46,7 +47,7 @@ void ImplicitBase::buildModel(
         for (int i =1; i< numAssetStep-1; ++i){
             curOptionPrices[i] = v[i-1];
         }
-        _updateBoundary(curOptionPrices, r, dt);
+        _updateBoundary(curOptionPrices, r, div, dt);
     }
     optionPrices = curOptionPrices;
 }

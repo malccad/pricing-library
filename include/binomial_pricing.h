@@ -10,6 +10,7 @@ double getBinomialPrice(
     const Wrapper<EuropeanOption>& theOption,
     double vol,
     double r,
+    double div,
     unsigned long numBinomialTimeSteps
 );
 
@@ -17,6 +18,7 @@ std::vector<double> _getFinalAssetPrices(
     double upFactor,
     double downFactor,
     double spot,
+    double onePeriodDividend,
     unsigned long numBinomialTimeSteps
 );
 

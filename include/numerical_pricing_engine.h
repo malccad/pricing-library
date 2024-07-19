@@ -15,7 +15,8 @@ public:
     NumericalPricingEngine(
         const Wrapper<EuropeanOption>& theOption,
         double vol,
-        double r
+        double r,
+        double div
         );
     
     virtual void buildModel(
@@ -24,6 +25,7 @@ public:
         double upperLimit
         )=0;
     
+    // linear interpolation to get option price at spot.
     double getOptionPrice(double spot);
 
     virtual ~NumericalPricingEngine(){};
@@ -32,6 +34,7 @@ protected:
     Wrapper<EuropeanOption> theOption;
     double vol;
     double r;
+    double div;
     std::vector<double> optionPrices;
     std::vector<double> assetPrices;
 

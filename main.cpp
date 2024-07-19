@@ -16,6 +16,7 @@ int main(){
     std::string engineName;
     double vol;
     double r;
+    double div;
     double spot;
     unsigned long numPaths;
     unsigned long numAssetSteps;
@@ -46,6 +47,9 @@ int main(){
     std::cout << "Enter interest rate: " << std::endl;
     std::cin >> r;
 
+    std::cout << "Enter dividend rate: " << std::endl;
+    std::cin >> div;
+    
     std::cout<< "Enter spot: " << std::endl;
     std::cin >> spot; 
 
@@ -53,7 +57,7 @@ int main(){
     std::cin >> engineName;
 
     std::unique_ptr<NumericalPricingEngine> enginePtr = NumericalPricingEngineFactory::Instance().createEngine(
-        engineName, theOption, vol, r
+        engineName, theOption, vol, r, div
     );
     std::cout << "Enter number of asset steps for numerical solver: "<< std::endl;
     std::cin >> numAssetSteps;
@@ -73,12 +77,12 @@ int main(){
     std::cout << "Enter number of time steps for binomial pricing" << std::endl;
     std::cin >> numBinomialTimeSteps;
 
-    double binomialPrice = getBinomialPrice(spot, theOption, vol, r, numBinomialTimeSteps);
+    double binomialPrice = getBinomialPrice(spot, theOption, vol, r, div, numBinomialTimeSteps);
     std::cout << "Option price, calculated using the binomial model is: "<< binomialPrice << std::endl;
 
     std::cout<< "Enter number of paths for Monte Carlo" << std::endl;
     std::cin >> numPaths; 
-    double monteCarloPrice = getMonteCarloPrice(spot, theOption, vol, r, numPaths);
+    double monteCarloPrice = getMonteCarloPrice(spot, theOption, vol, r, div, numPaths);
     std::cout<< "monte carlo price: "<< monteCarloPrice << std::endl;
     
 }

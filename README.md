@@ -12,9 +12,10 @@ The user needs to enter:
 1. Parameters for the payoff function.
 2. Expiry
 3. Interest rate
-4. Volatility
-5. Initial price of the asset
-6. Parameters for each solver:
+4. Dividend rate
+5. Volatility
+6. Initial price of the asset
+7. Parameters for each solver:
    * finite difference methods:
         the number of asset steps, the number of time steps and the upper bound for the asset price to set up the mesh (lower bound for asset price is set as $0$). It is recommended to set the upper bound to be $3$ to $4$ times the strike for call and put options.
    * Binomial pricing: 
@@ -25,28 +26,29 @@ The user needs to enter:
 ## Example
 | Parameters            |                |
 |-----------------------|----------------|
-| Expiry                | 1              |
+| Expiry                | 2              |
 | Option                | double_digital |
 | Lower strike          | 80             |
 | Upper strike          | 110            |
 | Volatility            | 0.2            |
 | Interest rate         | 0.05           |
+| Dividend rate         | 0.02           |
 | Initial asset price   | 100            |
 | # asset steps         | 400            |
-| # time steps          | 8000           |
+| # time steps          | 16000          |
 | Upper asset limit     | 400            |
 | # binomial time steps | 10000          |
-| # Monte Carlo paths   | 2000000        |
+| # Monte Carlo paths   | 1000000        |
 
 | Results        |          |
 |----------------|----------|
-| Explicit       | 0.499101 |
-| Implicit       | 0.49913  |
-| Crank Nicolson | 0.499115 |
-| Binomial       | 0.496237 |
-| Monte Carlo    | 0.499569 |
+| Explicit       | 0.371769 |
+| Implicit       | 0.371784 |
+| Crank Nicolson | 0.371777 |
+| Binomial       | 0.368663 |
+| Monte Carlo    | 0.370981 |
 
-The option price obtained from binomial tree is off by a bit, compared with others.
+The option prices obtained from the finite difference methods seem to converge to the same value.
 
 ## Implementation details
 ### Boundary conditions for finite difference methods
@@ -71,6 +73,7 @@ Since we are pricing a European option, we sample only the final price of the as
 To ensure a more even coverage, we used Halton sequence, combined with Box Muller transform, to sample from a Gaussian distribution.
 ### Assumptions
 * Fixed interest rate and volatility
+* The asset pays dividend continously at a fixed rate.
 * Asset price follows geometric Brownian motion.
 
 ## Reference

@@ -4,11 +4,13 @@
 Explicit::Explicit(
     const Wrapper<EuropeanOption>& theOption,
     double vol,
-    double r
+    double r,
+    double div
 ): NumericalPricingEngine(
     theOption,
     vol,
-    r
+    r,
+    div
 )
 {}
 
@@ -36,7 +38,7 @@ void Explicit::buildModel(
         for (int i=1; i<numAssetStep -1; ++i){
             double delta = (curOptionPrices[i+1] - curOptionPrices[i-1])/(2*dS);
             double gamma = (curOptionPrices[i+1] -2*curOptionPrices[i] + curOptionPrices[i-1])/(dS*dS);
-            double theta = -0.5*vol*vol*assetPrices[i]*assetPrices[i]*gamma - r*assetPrices[i]*delta + r*curOptionPrices[i];
+            double theta = -0.5*vol*vol*assetPrices[i]*assetPrices[i]*gamma - (r-div)*assetPrices[i]*delta + r*curOptionPrices[i];
             tempOptionPrices[i-1] = curOptionPrices[i] - dt*theta;
         }
 

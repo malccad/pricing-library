@@ -10,7 +10,8 @@ public:
     ImplicitBase(
         const Wrapper<EuropeanOption>& theOption,
         double vol,
-        double r
+        double r,
+        double div
     );
     void buildModel(
         unsigned long numAssetStep,
@@ -26,6 +27,7 @@ protected:
         double v2,
         double vol,
         double r,
+        double div,
         double dt
     ) const=0;
 
@@ -36,6 +38,7 @@ protected:
         double v2,
         double vol,
         double r,
+        double div,
         double dt
     ) const=0;
 
@@ -48,12 +51,14 @@ protected:
         double v1,
         double v2,
         double r,
+        double div,
         double dt
     )=0;
 
     virtual void _updateBoundary(
         std::vector<double>& curOptionPrices,
         double r,
+        double div,
         double dt
     )=0;
 };
