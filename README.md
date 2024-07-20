@@ -53,17 +53,20 @@ The option prices obtained from the finite difference methods seem to converge t
 ## Implementation details
 ### Boundary conditions for finite difference methods
 On the boundary condition at asset price $=0$, we assume that
-$$ \frac{\partial V}{\partial t} (0,t) - rV(0,t) = 0$$
+
+$$\frac{\partial V}{\partial t} (0,t) - rV(0,t) = 0$$
+
 where we denote the option price by $V$.
 
 On the boundary condition at the upper limit, we assume that the second derivative vanishes, i.e.
-$$ \frac{\partial^2 V}{\partial t^2}\rightarrow 0 \quad\text{as}\quad t\rightarrow \infty.$$
+
+$$\frac{\partial^2 V}{\partial t^2}\rightarrow 0 \quad\text{as}\quad t\rightarrow \infty.$$
 
 ### Linear interpolation for finite difference methods
 Finite difference methods compute the option price for asset price that lies on the grid points. Given an initial asset price, we use the nearest two points on the grid for linear interpolation to deduce the option price.
 ### Stability for explicit method
 We have included a stability check for explicit method - the solution is stable if
-$$\partial t\cdot \sigma^2 I^2\leq 1$$
+$\partial t\cdot \sigma^2 I^2\leq 1$
 where $I$ is the number of asset steps.
 
 ### Only sample final price for Monte Carlo
