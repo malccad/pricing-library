@@ -3,7 +3,7 @@
 
 double getBinomialPrice(
     double spot,
-    const Wrapper<EuropeanOption>& theOption,
+    const Wrapper<Option>& theOption,
     double vol,
     double r,
     double div,
@@ -49,7 +49,7 @@ std::vector<double> _getFinalAssetPrices(
 
 std::vector<double> _getFinalPayOff(
     std::vector<double> finalAssetPrices,
-    const Wrapper<EuropeanOption>& theOption
+    const Wrapper<Option>& theOption
 ){
     std::vector<double> finalOptionPrices;
     for (double assetPrice :finalAssetPrices){

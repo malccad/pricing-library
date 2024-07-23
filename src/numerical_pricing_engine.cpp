@@ -1,7 +1,7 @@
 #include "../include/numerical_pricing_engine.h"
 
 NumericalPricingEngine::NumericalPricingEngine(
-    const Wrapper<EuropeanOption>& theOption,
+    const Wrapper<Option>& theOption,
         double vol,
         double r,
         double div

@@ -8,7 +8,7 @@ class Implicit: public ImplicitBase
 {
 public:
     Implicit(
-        const Wrapper<EuropeanOption>& theOption,
+        const Wrapper<Option>& theOption,
         double vol,
         double r,
         double div

@@ -1,16 +1,16 @@
-#ifndef EUROPEAN_OPTION_H
-#define EUROPEAN_OPTION_H
+#ifndef OPTION_H
+#define OPTION_H
 
 #include "wrapper.h"
 #include "payoff.h"
 
-class EuropeanOption
+class Option
 {
 public:
-    EuropeanOption(const Wrapper<PayOff>& payOff, double expiry);
+    Option(const Wrapper<PayOff>& payOff, double expiry);
     double getPayOff(double spot) const;
     double getExpiry() const{return expiry;}
-    EuropeanOption* clone() const;
+    Option* clone() const;
 private:
     double expiry;
     Wrapper<PayOff> payOff;

@@ -2,7 +2,7 @@
 #define CRANK_NICOLSON_H
 
 #include "wrapper.h"
-#include "european_option.h"
+#include "option.h"
 #include "implicit_numerical_base.h"
 
 #include <tuple>
@@ -14,7 +14,7 @@ class CrankNicolson: public ImplicitBase
 {
 public:
     CrankNicolson(
-        const Wrapper<EuropeanOption>& theOption,
+        const Wrapper<Option>& theOption,
         double vol,
         double r,
         double div

@@ -8,7 +8,7 @@ class NumericalPricingEngineHelper
 {
 public:
     NumericalPricingEngineHelper(std::string engineName);
-    static std::unique_ptr<NumericalPricingEngine> createEngine(const Wrapper<EuropeanOption>& theOption, double vol, double r, double div);
+    static std::unique_ptr<NumericalPricingEngine> createEngine(const Wrapper<Option>& theOption, double vol, double r, double div);
 };
 
 template <class T>
@@ -21,7 +21,7 @@ NumericalPricingEngineHelper<T>::NumericalPricingEngineHelper(
 
 template <class T>
 std::unique_ptr<NumericalPricingEngine> NumericalPricingEngineHelper<T>::createEngine(
-    const Wrapper<EuropeanOption>& theOption, double vol, double r, double div
+    const Wrapper<Option>& theOption, double vol, double r, double div
 ){
     return std::make_unique<T>(theOption, vol, r, div);
 }

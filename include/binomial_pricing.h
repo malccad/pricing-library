@@ -2,12 +2,12 @@
 #define BINOMIAL_PRICING_H
 
 #include "wrapper.h"
-#include "european_option.h"
+#include "option.h"
 #include <vector>
 
 double getBinomialPrice(
     double spot,
-    const Wrapper<EuropeanOption>& theOption,
+    const Wrapper<Option>& theOption,
     double vol,
     double r,
     double div,
@@ -24,6 +24,6 @@ std::vector<double> _getFinalAssetPrices(
 
 std::vector<double> _getFinalPayOff(
     std::vector<double> finalAssetPrices,
-    const Wrapper<EuropeanOption>& theOption
+    const Wrapper<Option>& theOption
 );
 #endif

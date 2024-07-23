@@ -2,7 +2,7 @@
 #define NUMERICAL_PRICING_ENGINE_H
 
 #include "wrapper.h"
-#include "european_option.h"
+#include "option.h"
 
 #include <tuple>
 #include <vector>
@@ -13,7 +13,7 @@ class NumericalPricingEngine
 {
 public:
     NumericalPricingEngine(
-        const Wrapper<EuropeanOption>& theOption,
+        const Wrapper<Option>& theOption,
         double vol,
         double r,
         double div
@@ -31,7 +31,7 @@ public:
     virtual ~NumericalPricingEngine(){};
 
 protected:
-    Wrapper<EuropeanOption> theOption;
+    Wrapper<Option> theOption;
     double vol;
     double r;
     double div;

@@ -1,14 +1,14 @@
-#include "../include/european_option.h"
+#include "../include/option.h"
 
-EuropeanOption::EuropeanOption(const Wrapper<PayOff>& payOff, double expiry)
+Option::Option(const Wrapper<PayOff>& payOff, double expiry)
     :payOff(payOff), expiry(expiry)
 {}
 
-double EuropeanOption::getPayOff(double spot) const
+double Option::getPayOff(double spot) const
 {
     return (*payOff)(spot);
 }
 
-EuropeanOption* EuropeanOption::clone() const{
-    return new EuropeanOption(*this);
+Option* Option::clone() const{
+    return new Option(*this);
 }

@@ -12,7 +12,7 @@ void NumericalPricingEngineFactory::registerEngine(std::string engineName, Creat
 
 std::unique_ptr<NumericalPricingEngine> NumericalPricingEngineFactory::createEngine(
     std::string engineName,
-    const Wrapper<EuropeanOption>& theOption,
+    const Wrapper<Option>& theOption,
     double vol,
     double r,
     double div){

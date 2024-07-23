@@ -1,7 +1,7 @@
 #include "../include/crank_nicolson.h"
 
 CrankNicolson::CrankNicolson(
-    const Wrapper<EuropeanOption>& theOption,
+    const Wrapper<Option>& theOption,
     double vol,
     double r,
     double div

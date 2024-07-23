@@ -4,6 +4,7 @@
 #include "include/payoff_factory.h"
 #include "include/numerical_pricing_engine_factory.h"
 #include "include/monte_carlo_pricing.h"
+#include "include/option.h"
 #include "include/utils.h"
 #include "include/binomial_pricing.h"
 #include <iostream>
@@ -39,7 +40,7 @@ int main(){
 
     std::cout << "Enter expiry: " << std::endl;
     std::cin >> expiry;
-    EuropeanOption theOption(*payOffPtr, expiry);
+    Option theOption(*payOffPtr, expiry);
 
     std::cout << "Enter volatility: " << std::endl;
     std::cin >> vol;

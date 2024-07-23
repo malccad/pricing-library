@@ -8,7 +8,7 @@ class ImplicitBase: public NumericalPricingEngine
 {
 public:
     ImplicitBase(
-        const Wrapper<EuropeanOption>& theOption,
+        const Wrapper<Option>& theOption,
         double vol,
         double r,
         double div

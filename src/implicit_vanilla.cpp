@@ -2,7 +2,7 @@
 #include "../include/matrix_solver.h"
 
 Implicit::Implicit(
-    const Wrapper<EuropeanOption>& theOption,
+    const Wrapper<Option>& theOption,
     double vol,
     double r,
     double div
