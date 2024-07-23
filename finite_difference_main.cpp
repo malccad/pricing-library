@@ -3,10 +3,8 @@
 #include "include/implicit_vanilla.h"
 #include "include/payoff_factory.h"
 #include "include/numerical_pricing_engine_factory.h"
-#include "include/monte_carlo_pricing.h"
 #include "include/option.h"
 #include "include/utils.h"
-#include "include/binomial_pricing.h"
 #include <iostream>
 #include <string>
 int main(){
@@ -14,16 +12,15 @@ int main(){
     std::string payOffName;
     
     double expiry;
-    std::string engineName;
     double vol;
     double r;
     double div;
     double spot;
-    unsigned long numPaths;
+
+    std::string engineName;
     unsigned long numAssetSteps;
     unsigned long numTimeSteps;
     double upperPriceLimit;
-    unsigned long numBinomialTimeSteps;
 
     std::vector<std::string> payOffNames = PayOffFactory::Instance().getPayOffNames();
     std::string concatenatedPayOffNames = concatenate(payOffNames);
@@ -75,15 +72,4 @@ int main(){
 
     std::cout << "Option price, calculated using " << engineName << " method is: "  << p <<std::endl;
 
-    std::cout << "Enter number of time steps for binomial pricing" << std::endl;
-    std::cin >> numBinomialTimeSteps;
-
-    double binomialPrice = getBinomialPrice(spot, theOption, vol, r, div, numBinomialTimeSteps);
-    std::cout << "Option price, calculated using the binomial model is: "<< binomialPrice << std::endl;
-
-    std::cout<< "Enter number of paths for Monte Carlo" << std::endl;
-    std::cin >> numPaths; 
-    double monteCarloPrice = getMonteCarloPrice(spot, theOption, vol, r, div, numPaths);
-    std::cout<< "monte carlo price: "<< monteCarloPrice << std::endl;
-    
 }
