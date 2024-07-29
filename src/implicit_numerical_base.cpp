@@ -13,6 +13,7 @@ void ImplicitBase::buildModel(
     unsigned long numTimeStep,
     double upperLimit
 ){
+    Option::OptionType optionType = theOption->getOptionType();
     double lowerLimit = 0.0;
 
     double expiry = theOption->getExpiry();
@@ -48,6 +49,12 @@ void ImplicitBase::buildModel(
             curOptionPrices[i] = v[i-1];
         }
         _updateBoundary(curOptionPrices, r, div, dt);
+
+        if (optionType == Option::american){
+            for (int i=0; i<numAssetStep; ++i){
+                curOptionPrices[i] = std::max(curOptionPrices[i], theOption->getPayOff(assetPrices[i]));
+            }
+        }
     }
     optionPrices = curOptionPrices;
 }

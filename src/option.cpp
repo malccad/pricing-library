@@ -1,7 +1,7 @@
 #include "../include/option.h"
 
-Option::Option(const Wrapper<PayOff>& payOff, double expiry)
-    :payOff(payOff), expiry(expiry)
+Option::Option(const Wrapper<PayOff>& payOff, double expiry, OptionType theOptionType)
+    :payOff(payOff), expiry(expiry), theOptionType(theOptionType)
 {}
 
 double Option::getPayOff(double spot) const

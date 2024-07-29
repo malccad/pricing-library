@@ -1,5 +1,6 @@
 #include "include/payoff_factory.h"
 #include "include/monte_carlo_pricing.h"
+#include "include/least_square_monte_carlo_pricing.h"
 #include "include/option.h"
 #include "include/utils.h"
 #include <iostream>
@@ -14,6 +15,7 @@ int main(){
     double div;
     double spot;
     unsigned long numPaths;
+    double monteCarloPrice;
 
     std::vector<std::string> payOffNames = PayOffFactory::Instance().getPayOffNames();
     std::string concatenatedPayOffNames = concatenate(payOffNames);
@@ -28,7 +30,9 @@ int main(){
 
     std::cout << "Enter expiry: " << std::endl;
     std::cin >> expiry;
-    Option theOption(*payOffPtr, expiry);
+
+    Option::OptionType optionType = inputOptionType();
+    Option theOption(*payOffPtr, expiry, optionType);
 
     std::cout << "Enter volatility: " << std::endl;
     std::cin >> vol;
@@ -43,8 +47,21 @@ int main(){
     std::cin >> spot;
 
     std::cout<< "Enter number of paths for Monte Carlo" << std::endl;
-    std::cin >> numPaths; 
-    double monteCarloPrice = getMonteCarloPrice(spot, theOption, vol, r, div, numPaths);
+    std::cin >> numPaths;
+    if (optionType == Option::european)
+        monteCarloPrice = getMonteCarloPrice(spot, theOption, vol, r, div, numPaths);
+    else if (optionType == Option::american)
+    {   
+        unsigned long numBasisFunctions;
+        unsigned long numTimeSteps;
+        std::cout << "Enter number of basis functions: " << std::endl;
+        std::cin >> numBasisFunctions;
+
+        std::cout << "Enter number of time steps:" << std::endl;
+        std::cin >> numTimeSteps;
+        monteCarloPrice = getLeastSquareMonteCarloPrice(spot, theOption, vol, r, div, numPaths, numBasisFunctions, numTimeSteps);
+    }
+    
     std::cout<< "monte carlo price: "<< monteCarloPrice << std::endl;
     
 }

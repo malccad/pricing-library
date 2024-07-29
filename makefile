@@ -15,7 +15,8 @@ FINITE_DIFF_OBJS = $(FINITE_DIFF_SRCS:.cpp=.o)
 
 MONTE_CARLO_SRCS = monte_carlo_main.cpp src/box_muller.cpp src/gaussian_generator.cpp \
 	src/halton_sequence.cpp src/monte_carlo_pricing.cpp src/option.cpp src/payoff_factory.cpp \
-	src/payoff_registration.cpp src/payoff.cpp src/utils.cpp
+	src/payoff_registration.cpp src/payoff.cpp src/utils.cpp src/laguerre.cpp src/least_square_monte_carlo_pricing.cpp \
+	src/linear_algebra.cpp src/linear_regression.cpp src/minmax_scaler.cpp
 MONTE_CARLO_OBJS = $(MONTE_CARLO_SRCS:.cpp=.o)
 
 BINOMIAL_SRCS = binomial_main.cpp src/binomial_pricing.cpp src/option.cpp src/payoff_factory.cpp \

@@ -23,3 +23,24 @@ std::map<std::string, double> inputValuesIntoMap(std::vector<std::string> keys){
     }
     return m;
 }
+
+Option::OptionType inputOptionType(){
+    Option::OptionType optionType;
+    int input;
+    std::cout << "Enter option type (0 = european, 1 = american):" <<  std::endl;
+    std::cin >> input;
+    switch (input){
+        case 0:
+            optionType = Option::european;
+            break;
+        case 1:
+            optionType = Option::american;
+            break;
+        default:
+            std::cout << "Invalid choice. Defaulting to european option." << std::endl;
+            optionType = Option::european;
+            break;
+    }
+    return optionType;
+
+}

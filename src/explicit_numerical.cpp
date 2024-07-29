@@ -1,5 +1,6 @@
 #include "../include/explicit_numerical.h"
 #include <iostream>
+#include <algorithm>
 
 Explicit::Explicit(
     const Wrapper<Option>& theOption,
@@ -19,6 +20,7 @@ void Explicit::buildModel(
     unsigned long numTimeStep,
     double upperLimit
 ){
+    Option::OptionType optionType = theOption->getOptionType();
     double lowerLimit = 0.0;
     
     double dS = (upperLimit - lowerLimit)/(numAssetStep-1);
@@ -47,6 +49,11 @@ void Explicit::buildModel(
         }
         curOptionPrices[0] = curOptionPrices[0]*(1- r*dt);
         curOptionPrices[numAssetStep - 1] = 2*curOptionPrices[numAssetStep-2] - curOptionPrices[numAssetStep -3];
+        if (optionType == Option::american){
+            for (int i=0; i<numAssetStep; ++i){
+                curOptionPrices[i] = std::max(curOptionPrices[i], theOption->getPayOff(assetPrices[i]));
+            }
+        }
     }
     optionPrices = curOptionPrices;
 }

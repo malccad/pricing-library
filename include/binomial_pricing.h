@@ -14,7 +14,7 @@ double getBinomialPrice(
     unsigned long numBinomialTimeSteps
 );
 
-std::vector<double> _getFinalAssetPrices(
+std::vector<std::vector<double>> _getAssetPrices(
     double upFactor,
     double downFactor,
     double spot,
