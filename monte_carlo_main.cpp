@@ -19,14 +19,11 @@ int main(){
 
     std::vector<std::string> payOffNames = PayOffFactory::Instance().getPayOffNames();
     std::string concatenatedPayOffNames = concatenate(payOffNames);
-    std::cout << "Enter the option type: {" << concatenatedPayOffNames << "}" << std::endl;
+    std::cout << "Enter the payoff type: {" << concatenatedPayOffNames << "}" << std::endl;
     std::cin >> payOffName;
-
-    std::unique_ptr<PayOff> payOffPtr = PayOffFactory::Instance().createPayOff(payOffName);
-    
-    std::vector<std::string> paramNames = payOffPtr->getParamNames();
+    std::vector<std::string> paramNames = PayOffFactory::Instance().getParamNames(payOffName);
     std::map<std::string, double> params = inputValuesIntoMap(paramNames);
-    payOffPtr->readParams(params);
+    std::unique_ptr<PayOff> payOffPtr = PayOffFactory::Instance().createPayOff(payOffName, params);
 
     std::cout << "Enter expiry: " << std::endl;
     std::cin >> expiry;

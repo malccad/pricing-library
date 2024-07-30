@@ -24,17 +24,16 @@ int main(){
 
     std::vector<std::string> payOffNames = PayOffFactory::Instance().getPayOffNames();
     std::string concatenatedPayOffNames = concatenate(payOffNames);
-    std::vector<std::string> engineNames = NumericalPricingEngineFactory::Instance().getEngineNames();
-    std::string concatenatedEngineNames = concatenate(engineNames);
     std::cout << "Enter the payoff type: {" << concatenatedPayOffNames << "}" << std::endl;
     std::cin >> payOffName;
+    std::vector<std::string> paramNames = PayOffFactory::Instance().getParamNames(payOffName);
+    std::map<std::string, double> params = inputValuesIntoMap(paramNames);
+    std::unique_ptr<PayOff> payOffPtr = PayOffFactory::Instance().createPayOff(payOffName, params);
+
+    std::vector<std::string> engineNames = NumericalPricingEngineFactory::Instance().getEngineNames();
+    std::string concatenatedEngineNames = concatenate(engineNames);
 
     Option::OptionType optionType = inputOptionType();
-    std::unique_ptr<PayOff> payOffPtr = PayOffFactory::Instance().createPayOff(payOffName);
-    
-    std::vector<std::string> paramNames = payOffPtr->getParamNames();
-    std::map<std::string, double> params = inputValuesIntoMap(paramNames);
-    payOffPtr->readParams(params);
 
     std::cout << "Enter expiry: " << std::endl;
     std::cin >> expiry;

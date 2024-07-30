@@ -9,20 +9,20 @@ template<class T>
 class PayOffHelper
 {
 public:
-    PayOffHelper(std::string payOffName);
-    static std::unique_ptr<PayOff> create();
+    PayOffHelper(std::string payOffName, std::vector<std::string> paramNames);
+    static std::unique_ptr<PayOff> create(std::map<std::string, double> params);
 private:
 
 };
 
 template<class T>
-PayOffHelper<T>::PayOffHelper(std::string payOffName){
+PayOffHelper<T>::PayOffHelper(std::string payOffName, std::vector<std::string> paramNames){
     PayOffFactory& thePayOffFactory = PayOffFactory::Instance();
-    thePayOffFactory.registerPayOff(payOffName, PayOffHelper<T>::create);
+    thePayOffFactory.registerPayOff(payOffName, PayOffHelper<T>::create, paramNames);
 }
 
 template<class T>
-std::unique_ptr<PayOff> PayOffHelper<T>::create(){
-    return std::make_unique<T>();
+std::unique_ptr<PayOff> PayOffHelper<T>::create(std::map<std::string, double> params){
+    return std::make_unique<T>(params);
 }
 #endif
