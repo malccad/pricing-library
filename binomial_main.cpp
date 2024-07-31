@@ -43,6 +43,7 @@ int main(){
     std::cout << "Enter number of time steps for binomial pricing" << std::endl;
     std::cin >> numBinomialTimeSteps;
 
-    double binomialPrice = getBinomialPrice(spot, theOption, vol, r, div, numBinomialTimeSteps);
+    BinomialPricingEngine engine(spot, theOption, vol, r, div, numBinomialTimeSteps);
+    double binomialPrice = engine.getOptionPrice();
     std::cout << "Option price, calculated using the binomial model is: "<< binomialPrice << std::endl;
 }

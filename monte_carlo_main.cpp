@@ -16,6 +16,7 @@ int main(){
     double spot;
     unsigned long numPaths;
     double monteCarloPrice;
+    double standardErrorOfMean;
 
     std::vector<std::string> payOffNames = PayOffFactory::Instance().getPayOffNames();
     std::string concatenatedPayOffNames = concatenate(payOffNames);
@@ -45,8 +46,12 @@ int main(){
 
     std::cout<< "Enter number of paths for Monte Carlo" << std::endl;
     std::cin >> numPaths;
-    if (optionType == Option::european)
-        monteCarloPrice = getMonteCarloPrice(spot, theOption, vol, r, div, numPaths);
+    
+    if (optionType == Option::european){
+        MonteCarloPricingEngine engine(spot, theOption, vol, r, div, numPaths);
+        monteCarloPrice = engine.getOptionPrice();
+        standardErrorOfMean = engine.getStandardErrorOfMean();
+    }
     else if (optionType == Option::american)
     {   
         unsigned long numBasisFunctions;
@@ -56,9 +61,12 @@ int main(){
 
         std::cout << "Enter number of time steps:" << std::endl;
         std::cin >> numTimeSteps;
-        monteCarloPrice = getLeastSquareMonteCarloPrice(spot, theOption, vol, r, div, numPaths, numBasisFunctions, numTimeSteps);
+        LeastSquareMonteCarloPricingEngine engine(spot, theOption, vol, r, div, numPaths, numBasisFunctions, numTimeSteps);
+        monteCarloPrice = engine.getOptionPrice();
+        standardErrorOfMean = engine.getStandardErrorOfMean();
     }
     
     std::cout<< "monte carlo price: "<< monteCarloPrice << std::endl;
+    std::cout<< "standard error of mean: "<< standardErrorOfMean << std::endl;
     
 }

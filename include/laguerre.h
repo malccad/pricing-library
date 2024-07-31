@@ -6,7 +6,7 @@ class Laguerre
 {
 public:
     Laguerre(unsigned long m);
-    std::vector<double> operator()(double x);
+    std::vector<double> operator()(double x) const;
 private:
     unsigned long m;
 };
