@@ -18,7 +18,7 @@ void ImplicitBase::buildModel(
 
     double expiry = theOption->getExpiry();
     double dS = (upperLimit - lowerLimit)/(numAssetStep-1);
-    double dt = expiry/(numTimeStep-1);
+    double dt = expiry/numTimeStep;
 
     double v1 = dt/(dS*dS);
     double v2 = dt/dS;
@@ -33,7 +33,7 @@ void ImplicitBase::buildModel(
     std::map<std::string, std::vector<double>> triDiagonalMatrix = _getTriDiagonalMatrix(
         assetPrices, v1, v2, vol, r, div, dt);
     
-    for (int k=1; k<numTimeStep; ++k){
+    for (int k=1; k<numTimeStep+1; ++k){
 
         std::vector<double> target = _getTarget(curOptionPrices, assetPrices, v1, v2, vol, r, div, dt);
 
