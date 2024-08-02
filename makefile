@@ -4,45 +4,56 @@ COMPILER = clang++
 # Compiler flags
 FLAGS = -std=c++14
 
-TARGETS = finite_difference.out monte_carlo.out binomial.out
+SRC_DIR = src
+INCLUDE_DIR = include
+BUILD_DIR = build
+BIN_DIR = bin
+
+BINOMIAL_DIR = $(SRC_DIR)/binomial
+FINITE_DIFF_DIR = $(SRC_DIR)/finite_difference
+MONTE_CARLO_DIR = $(SRC_DIR)/monte_carlo
+GAUSSIAN_DIR = $(SRC_DIR)/gaussian
+OPTION_DIR = $(SRC_DIR)/option
+UTILS_DIR = $(SRC_DIR)/utils
+
+TARGETS = $(BIN_DIR)/finite_difference.out $(BIN_DIR)/monte_carlo.out $(BIN_DIR)/binomial.out
 # List of source files
-FINITE_DIFF_SRCS = finite_difference_main.cpp src/crank_nicolson.cpp \
-	src/explicit_numerical.cpp src/implicit_numerical_base.cpp src/implicit_vanilla.cpp \
-	src/matrix_solver.cpp src/numerical_pricing_engine_factory.cpp src/numerical_pricing_engine_registration.cpp \
-	src/numerical_pricing_engine.cpp src/option.cpp src/payoff_factory.cpp src/payoff_registration.cpp \
-	src/payoff.cpp src/utils.cpp
-FINITE_DIFF_OBJS = $(FINITE_DIFF_SRCS:.cpp=.o)
+FINITE_DIFF_SRCS = $(SRC_DIR)/finite_difference_main.cpp $(wildcard $(FINITE_DIFF_DIR)/*.cpp $(OPTION_DIR)/*.cpp $(UTILS_DIR)/*.cpp)
 
-MONTE_CARLO_SRCS = monte_carlo_main.cpp src/box_muller.cpp src/gaussian_generator.cpp \
-	src/halton_sequence.cpp src/monte_carlo_pricing.cpp src/option.cpp src/payoff_factory.cpp \
-	src/payoff_registration.cpp src/payoff.cpp src/utils.cpp src/laguerre.cpp src/least_square_monte_carlo_pricing.cpp \
-	src/linear_algebra.cpp src/linear_regression.cpp src/minmax_scaler.cpp
-MONTE_CARLO_OBJS = $(MONTE_CARLO_SRCS:.cpp=.o)
+FINITE_DIFF_OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(FINITE_DIFF_SRCS))
 
-BINOMIAL_SRCS = binomial_main.cpp src/binomial_pricing.cpp src/option.cpp src/payoff_factory.cpp \
-	src/payoff_registration.cpp src/payoff.cpp src/utils.cpp
-BINOMIAL_OBJS = $(BINOMIAL_SRCS:.cpp=.o)
+MONTE_CARLO_SRCS = $(SRC_DIR)/monte_carlo_main.cpp $(wildcard $(MONTE_CARLO_DIR)/*.cpp $(GAUSSIAN_DIR)/*.cpp $(OPTION_DIR)/*.cpp $(UTILS_DIR)/*.cpp)
+
+MONTE_CARLO_OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(MONTE_CARLO_SRCS))
+
+BINOMIAL_SRCS = $(SRC_DIR)/binomial_main.cpp $(wildcard $(BINOMIAL_DIR)/*.cpp $(OPTION_DIR)/*.cpp $(UTILS_DIR)/*.cpp)
+
+BINOMIAL_OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(BINOMIAL_SRCS))
 
 # Default target
 all: $(TARGETS)
 
 # Rule to link the object files to create the executable
-finite_difference.out: $(FINITE_DIFF_OBJS)
+$(BIN_DIR)/finite_difference.out: $(FINITE_DIFF_OBJS)
+	@mkdir -p $(BIN_DIR)
 	$(COMPILER) $(FLAGS) $^ -o $@
 
-monte_carlo.out: $(MONTE_CARLO_OBJS)
+$(BIN_DIR)/monte_carlo.out: $(MONTE_CARLO_OBJS)
+	@mkdir -p $(BIN_DIR)
 	$(COMPILER) $(FLAGS) $^ -o $@
 
-binomial.out: $(BINOMIAL_OBJS)
+$(BIN_DIR)/binomial.out: $(BINOMIAL_OBJS)
+	@mkdir -p $(BIN_DIR)
 	$(COMPILER) $(FLAGS) $^ -o $@
 
 # Rule to compile .cpp files to .o files
-%.o: %.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
 	$(COMPILER) $(FLAGS) -c $< -o $@
 
 # Rule to clean the build
 clean:
-	rm -f $(FINITE_DIFF_OBJS) $(MONTE_CARLO_OBJS) $(BINOMIAL_OBJS) $(TARGETS)$
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
 # Phony targets (not actual files)
 .PHONY: all clean
