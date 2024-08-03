@@ -61,6 +61,7 @@ The user needs to enter:
 |------------------------------------|----------------|
 | Expiry                             | 1              |
 | PayOff                             | power_put      |
+| power                              | 1.5            |
 | Option type                        | american       |
 | strike                             | 100            |
 | Volatility                         | 0.2            |
