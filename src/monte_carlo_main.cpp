@@ -56,7 +56,7 @@ int main(){
     {   
         unsigned long numBasisFunctions;
         unsigned long numTimeSteps;
-        std::cout << "Enter number of basis functions: " << std::endl;
+        std::cout << "Enter number of basis functions: (recommended choice = 3)" << std::endl;
         std::cin >> numBasisFunctions;
 
         std::cout << "Enter number of time steps:" << std::endl;
